@@ -1,0 +1,6 @@
+<app-date-navigator (update)="update()"></app-date-navigator>
+<div>
+  <div *ngFor="let invoice of invoices">
+<app-invoice-list-element [invoice]="invoice"></app-invoice-list-element>
+  </div>
+</div>

@@ -1,0 +1,17 @@
+<div class="invoice-item">
+  <p>{{invoice.date}}</p>
+  <p class="title">{{invoice.account}}</p>
+  <p>{{invoice.name}}</p>
+  <p>{{invoice.price}}</p>
+  <button (click)="details(invoice.listId)">Szczegóły</button>
+
+</div>
+<div *ngIf="showDetails">
+  <div *ngFor="let details of invoiceDetails" class="invoice-item">
+    <p>{{details.productName}}</p>
+    <p>{{details.price}}</p>
+    <p>{{details.quantity}}</p>
+    <p>{{details.discount}}</p>
+    <p>{{details.totalPrice}}</p>
+  </div>
+</div>

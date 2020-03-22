@@ -1,0 +1,78 @@
+<div class="container-fluid">
+  <h2>Paragony</h2>
+  {{invoiceForm.value | json}}
+  {{newInvoiceCreated}}
+  <div style="width: 100%; overflow: hidden;">
+    <div style="width: 500px; float: left; background-color: antiquewhite">
+      <form [formGroup]="invoiceForm">
+        <div class="input-group">
+          <div class="form-group">
+            <label>Konto</label>
+            <select formControlName="account" class="form-control">
+              <option *ngFor="let account of accounts" [value]="account.id">
+                {{account.name}}
+              </option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Sklep</label>
+            <select formControlName="shopId" class="form-control">
+              <option *ngFor="let shop of shops" [value]="shop.shopId">
+                {{shop.name}}
+              </option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <mat-label>Data</mat-label>
+            <input formControlName="date" matInput [matDatepicker]="picker">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </div>
+          <div class="form-group label-input">
+            <label for="invoiceNumber">Nr. paragonu</label>
+            <input id="invoiceNumber" formControlName="invoiceNumber" type="text" class="form-control enter-input">
+          </div>
+        </div>
+          <button class="btn btn-primary m-2 p-2" (click)="saveBaseInvoiceData()">Utwórz</button>
+          <button class="btn btn-primary mr-2" (click)="cancelInvoice()">Anuluj</button>
+          <button class="btn btn-primary mr-2" (click)="saveInvoice()">Zapisz</button>
+      </form>
+    </div>
+
+    <div style="width: 500px; float: left">
+      <p>Załadowano {{allOptions.length}} produktów</p>
+      <form [formGroup]="invoiceProductsForm" (ngSubmit)="addProduct()">
+        <div class="input-group">
+          <div class="form-group">
+            <label>Produkt</label>
+            <mat-form-field>
+              <input #product type="text" matInput formControlName="product" [matAutocomplete]="auto">
+            </mat-form-field>
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayName">
+              <mat-option *ngFor="let option of shopItems | async" [value]="option">
+                {{ option.name }}
+              </mat-option>
+            </mat-autocomplete>
+          </div>
+          <div class="form-group label-input">
+            <label for="price">Cena</label>
+            <input id="price" formControlName="price" type="number" class="form-control enter-input">
+          </div>
+
+          <div class="form-group label-input">
+            <label>Ilość</label>
+            <input type="number" formControlName="amount" class="form-control enter-input">
+          </div>
+          <div class="form-group label-input">
+            <label>Rabat</label>
+            <input formControlName="discount" type="number" class="form-control enter-input">
+          </div>
+          <button class="btn btn-primary ml-2" type="submit">Dodaj</button>
+        </div>
+
+      </form>
+      <label *ngFor="let product of products">{{product | json}}</label>
+    </div>
+  </div>
+</div>
