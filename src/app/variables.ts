@@ -9,6 +9,6 @@ export function nextMonth() {
 
 export function previousMonth() {
   const m = month -= 1;
-  localStorage.setItem('month', String(month - 1));
+  localStorage.setItem('month', String(m));
 
 }
