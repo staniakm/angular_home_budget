@@ -3,15 +3,26 @@
   <p class="title">{{invoice.account}}</p>
   <p>{{invoice.name}}</p>
   <p>{{invoice.price}}</p>
-  <button (click)="details(invoice.listId)">Szczegóły</button>
+  <button *ngIf="!showDetails" (click)="details(invoice.listId)" mat-mini-fab color="primary"><mat-icon>keyboard_arrow_down</mat-icon></button>
+  <button *ngIf="showDetails" (click)="details(invoice.listId)" mat-mini-fab color="primary"><mat-icon>keyboard_arrow_up</mat-icon></button>
 
 </div>
 <div *ngIf="showDetails">
-  <div *ngFor="let details of invoiceDetails" class="invoice-item">
-    <p>{{details.productName}}</p>
-    <p>{{details.price}}</p>
-    <p>{{details.quantity}}</p>
-    <p>{{details.discount}}</p>
-    <p>{{details.totalPrice}}</p>
-  </div>
+  <table style="width:80%; border: black solid 1px; margin-left: 5px">
+    <tr>
+      <th style="width: 25%">Produkt</th>
+      <th>Cena</th>
+      <th>Ilość</th>
+      <th>Rabat</th>
+      <th>Suma</th>
+    </tr>
+    <tr *ngFor="let details of invoiceDetails" >
+      <td>{{details.productName}}</td>
+      <td>{{details.price}}</td>
+      <td>{{details.quantity}}</td>
+      <td>{{details.discount}}</td>
+      <td>{{details.totalPrice}}</td>
+    </tr>
+  </table>
+
 </div>
